@@ -96,7 +96,7 @@ jobs:
            # Desplegar el proxy si la subida fue exitosa
             if [[ "$REVISION" != "null" ]]; then
                 echo "Desplegando proxy ${{ secrets.API_PROXY_NAME }} en el entorno ${{ secrets.APIGEE_ENV }} con la revisión $REVISION"
-                gcloud apigee apis deploy "${{ secrets.API_PROXY_NAME }}" --environment="${{ secrets.APIGEE_ENV }}" "$REVISION"
+                gcloud apigee apis deploy "${{ secrets.API_PROXY_NAME }}" --environment="${{ secrets.APIGEE_ENV }}" --revision="$REVISION"
             else
                 echo "Error al subir el proxy."
                 exit 1
