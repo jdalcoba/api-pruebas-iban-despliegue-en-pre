@@ -96,10 +96,7 @@ jobs:
            # Desplegar el proxy si la subida fue exitosa
             if [[ "$REVISION" != "null" ]]; then
                 echo "Desplegando proxy ${{ secrets.API_PROXY_NAME }} en el entorno ${{ secrets.APIGEE_ENV }} con la revisión $REVISION"
-                DEPLOY_RESPONSE=$(curl -X POST \
-                  "https://apigee.googleapis.com/v1/organizations/${{ secrets.APIGEE_ORG }}/environments/${{ secrets.APIGEE_ENV }}/apis/${{ secrets.API_PROXY_NAME }}/revisions/$REVISION/deployments" \
-                  -H "Authorization: Bearer $(gcloud auth print-access-token)")
-                echo "Respuesta de despliegue: $DEPLOY_RESPONSE"
+                gcloud apigee apis deploy --api="${{ secrets.API_PROXY_NAME }}" --environment="${{ secrets.APIGEE_ENV }}" --override
             else
                 echo "Error al subir el proxy."
                 exit 1
